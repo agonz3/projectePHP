@@ -1,134 +1,170 @@
 <?php
-session_start(); // Iniciar sessió
+// Iniciar la sesión
+session_start();
 
-    
+// Configuración de la base de datos
+$host = "localhost"; // Cambia por tu host si es necesario
+$dbname = "tiendacochesgta";
+$username = "super"; // Cambia por tu usuario de la base de datos
+$password = "EwnizEv5"; // Cambia por tu contraseña de la base de datos
 
-// Inclou el fitxer de connexió a la base de dades
-include 'conexio.php';
-
-// Variable per guardar errors
-$error = "";
-
-// Comprovar si s'ha enviat el formulari
+// Verificar si el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recollir dades del formulari
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    // Obtener los valores del formulario
+    $usuario = $_POST['usuario'];
+    $contraseña = $_POST['contraseña'];
 
-    // Comprovar que els camps no estiguin buits
-    if (!empty($username) && !empty($password)) {
-        // Preparar la consulta per verificar l'usuari
-        $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
+    // Conexión a la base de datos
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Consulta para verificar el usuario y la contraseña
+        $sql = "SELECT * FROM usuarios WHERE usuario = :usuario LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':usuario', $usuario);
         $stmt->execute();
-        $stmt->store_result();
 
-        // Comprovar si s'ha trobat l'usuari
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $hashed_password);
-            $stmt->fetch();
+        // Comprobar si se encontró al usuario
+        $usuarioEncontrado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Verificar la contrasenya
-            if (password_verify($password, $hashed_password)) {
-                // Credencials correctes, iniciar sessió
-                $_SESSION['user_id'] = $id;
-                $_SESSION['username'] = $username;
-
-                // Redirigir a la pàgina de dashboard
-                header("Location: dashboard.php");
-                exit();
-            } else {
-                // Contrasenya incorrecta
-                $error = "Credencials incorrectes";
-            }
+        if ($usuarioEncontrado && password_verify($contraseña, $usuarioEncontrado['contraseña'])) {
+            // Iniciar sesión y redirigir al dashboard
+            $_SESSION['id_usuario'] = $usuarioEncontrado['id_usuario'];
+            $_SESSION['usuario'] = $usuarioEncontrado['usuario'];
+            header("Location: dashboard.php");
+            exit();
         } else {
-            // Usuari no trobat
-            $error = "Credencials incorrectes";
+            echo "Usuario o contraseña incorrectos.";
         }
-
-        // Tancar la consulta
-        $stmt->close();
-    } else {
-        // Camps buits
-        $error = "Tots els camps són obligatoris";
+    } catch (PDOException $e) {
+        echo "Error de conexión: " . $e->getMessage();
     }
-
-    // Tancar la connexió
-    $conn->close();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Los Santos Autos - Iniciar Sesión</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    header {
+      background: #ff0000;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      background: #111;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #ff0000;
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      padding: 50px 0;
+    }
+
+    .login-box {
+      background: #2b2b2b;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #000;
+      width: 400px;
+    }
+
+    .login-box h2 {
+      text-align: center;
+      color: #ff0000;
+      margin-bottom: 20px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #333;
+      background: #444;
+      color: #fff;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+    }
+
+    .login-box button:hover {
+      background-color: #cc0000;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-    <form method="post" action="">
-        <h2>Iniciar Sessió</h2>
-        <label for="username">Usuari:</label>
-        <input type="text" name="username" id="username" required>
 
-        <label for="password">Contrasenya:</label>
-        <input type="password" name="password" id="password" required>
+  <header>
+    <h1>Los Santos Autos</h1>
+  </header>
 
-        <button type="submit">Iniciar Sessió</button>
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Catálogo</a>
+    <a href="#">Sobre Nosotros</a>
+    <a href="#">Contacto</a>
+    <a href="login.php" class="login-btn">Iniciar Sesión</a>
+  </nav>
 
-        <?php if (!empty($error)): ?>
-            <p class="error"><?php echo $error; ?></p>
-        <?php endif; ?>
-    </form>
-                
-    
-            
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Iniciar Sesión</h2>
+      <form method="POST" action="">
+        <input type="text" name="usuario" placeholder="Usuario" required><br>
+        <input type="password" name="contraseña" placeholder="Contraseña" required><br>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+    </div>
+  </div>
 
+  <footer>
+    © 2025 Los Santos Autos. Todos los derechos reservados.
+  </footer>
 
 </body>
 </html>
-
