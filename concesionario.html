@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Los Santos Autos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    header {
+      background: #ff0000;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      background: #111;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #ff0000;
+    }
+
+    .login-btn {
+      background-color: #ff0000;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-left: 15px;
+    }
+
+    .login-btn:hover {
+      background-color: #cc0000;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .car-card {
+      background: #2b2b2b;
+      margin: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 300px;
+      box-shadow: 0 0 10px #000;
+      transition: transform 0.3s ease;
+    }
+
+    .car-card:hover {
+      transform: scale(1.05);
+    }
+
+    .car-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .car-info {
+      padding: 15px;
+    }
+
+    .car-info h3 {
+      margin: 0;
+      font-size: 1.5em;
+      color: #ff0000;
+    }
+
+    .car-info p {
+      margin-top: 10px;
+      font-size: 1em;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Los Santos Autos</h1>
+  </header>
+
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Catálogo</a>
+    <a href="#">Sobre Nosotros</a>
+    <a href="#">Contacto</a>
+    <a href="login.php" class="login-btn">Iniciar Sesión</a>
+  </nav>
+
+  <div class="container">
+    <!-- Tarjetas de coches como antes -->
+    <div class="car-card">
+      <img src="https://i.imgur.com/E9kTt6z.jpg" alt="Elegy Retro Custom">
+      <div class="car-info">
+        <h3>Elegy Retro</h3>
+        <p>Potente y clásico, ideal para las calles de Los Santos. $95,000</p>
+      </div>
+    </div>
+
+    <div class="car-card">
+      <img src="https://i.imgur.com/9GkN5fy.jpg" alt="Banshee 900R">
+      <div class="car-info">
+        <h3>Banshee 900R</h3>
+        <p>Velocidad y estilo en uno. Desata el caos. $105,000</p>
+      </div>
+    </div>
+
+    <div class="car-card">
+      <img src="https://i.imgur.com/jT1eLME.jpg" alt="Sultan RS">
+      <div class="car-info">
+        <h3>Sultan RS</h3>
+        <p>Ideal para rallies y persecuciones. $120,000</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Los Santos Autos. Todos los derechos reservados.
+  </footer>
+
+</body>
+</html>
