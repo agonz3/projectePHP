@@ -1,7 +1,17 @@
 <?php
 session_start();
 
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login.php");
+    exit();
+}
 
+// Verificar si el usuario logueado es 'super'
+if ($_SESSION['usuario'] != 'super') {
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

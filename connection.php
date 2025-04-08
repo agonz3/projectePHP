@@ -3,7 +3,7 @@
 $servername = "localhost"; // Servidor de la base de dades
 $username = "super";        // Usuari de MySQL
 $password = "EwnizEv5"; // Contrasenya de MySQL
-$dbname = "tiendascochesgta";  // Nom de la base de dades
+$dbname = "tiendacochesgta";  // Nom de la base de dades
 
 // Crear connexió
 $conn = new mysqli($servername, $username, $password, $dbname);
