@@ -1,11 +1,17 @@
 <?php
 session_start();
 
-// Opcional: Puedes verificar si el usuario está logueado aquí
-// if (!isset($_SESSION['usuario'])) {
-//     header('Location: login.php');
-//     exit();
-// }
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Verificar si el usuario logueado es 'super'
+if ($_SESSION['usuario'] != 'super') {
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +106,7 @@ session_start();
 
   <nav>
     <a href="#">Inicio</a>
-    <a href="#">Catálogo</a>
+    <a href="catalogo.php">Catálogo</a>
     <a href="#">Perfil</a>
     <a href="logout.php">Cerrar sesión</a>
   </nav>

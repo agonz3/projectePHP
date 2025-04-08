@@ -3,42 +3,52 @@
 session_start();
 
 // Configuración de la base de datos
-$host = "localhost"; // Cambia por tu host si es necesario
+$host = "localhost";
 $dbname = "tiendacochesgta";
-$username = "super"; // Cambia por tu usuario de la base de datos
-$password = "EwnizEv5"; // Cambia por tu contraseña de la base de datos
+$dbuser = "super";
+$dbpass = "EwnizEv5";
 
 // Verificar si el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los valores del formulario
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
 
-    // Conexión a la base de datos
     try {
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        // Conectar con la base de datos
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $dbuser, $dbpass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Consulta para verificar el usuario y la contraseña
+        // Preparar la consulta para verificar si el usuario existe
         $sql = "SELECT * FROM usuarios WHERE usuario = :usuario LIMIT 1";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':usuario', $usuario);
         $stmt->execute();
 
-        // Comprobar si se encontró al usuario
+        // Obtener el resultado de la consulta
         $usuarioEncontrado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($usuarioEncontrado && password_verify($contraseña, $usuarioEncontrado['contraseña'])) {
-            // Iniciar sesión y redirigir al dashboard
-            $_SESSION['id_usuario'] = $usuarioEncontrado['id_usuario'];
-            $_SESSION['usuario'] = $usuarioEncontrado['usuario'];
-            header("Location: dashboard.php");
-            exit();
+        
+        // Verificar si el usuario existe
+        if ($usuarioEncontrado) {
+            // Verificar si la contraseña es correcta
+            if (password_verify($contraseña, $usuarioEncontrado['contraseña'])) {
+                // Iniciar sesión y redirigir al dashboard
+                $_SESSION['id_usuario'] = $usuarioEncontrado['id_usuario'];
+                $_SESSION['usuario'] = $usuarioEncontrado['usuario'];
+                
+                // Redirigir al dashboard
+                header("Location: dashboard.php");
+                exit();
+            } else {
+                // Error en la contraseña
+                $error = "Contraseña incorrecta.";
+            }
         } else {
-            echo "Usuario o contraseña incorrectos.";
+            // Error en el usuario
+            $error = "Usuario no encontrado.";
         }
     } catch (PDOException $e) {
-        echo "Error de conexión: " . $e->getMessage();
+        // Error de conexión
+        $error = "Error de conexión: " . $e->getMessage();
     }
 }
 ?>
@@ -47,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Los Santos Autos - Iniciar Sesión</title>
+  <title>Iniciar Sesión - Los Santos Autos</title>
   <style>
     body {
       margin: 0;
@@ -88,45 +98,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     .login-container {
       display: flex;
       justify-content: center;
-      padding: 50px 0;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #333;
     }
 
     .login-box {
-      background: #2b2b2b;
+      width: 350px;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #000;
-      width: 400px;
+      border-radius: 8px;
+      background-color: #222;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .login-box h2 {
       text-align: center;
       color: #ff0000;
-      margin-bottom: 20px;
+      font-size: 2.5em;
     }
 
-    .login-box input {
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #333;
-      background: #444;
-      color: #fff;
+      margin: 10px 0;
+      border: 1px solid #ccc;
       border-radius: 5px;
+      font-size: 16px;
+      background-color: #333;
+      color: #fff;
     }
 
-    .login-box button {
+    .login-box button[type="submit"] {
       width: 100%;
       padding: 10px;
       background-color: #ff0000;
       color: white;
       border: none;
       border-radius: 5px;
-      font-size: 1.2em;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .login-box button:hover {
+    .login-box button[type="submit"]:hover {
       background-color: #cc0000;
+    }
+
+    .error {
+      color: #dc3545;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 15px;
     }
 
     footer {
@@ -134,6 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       text-align: center;
       padding: 20px;
       color: #888;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
     }
   </style>
 </head>
@@ -145,15 +171,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <nav>
     <a href="#">Inicio</a>
-    <a href="#">Catálogo</a>
+    <a href="catalogo.php">Catálogo</a>
     <a href="#">Sobre Nosotros</a>
     <a href="#">Contacto</a>
-    <a href="login.php" class="login-btn">Iniciar Sesión</a>
   </nav>
 
   <div class="login-container">
     <div class="login-box">
       <h2>Iniciar Sesión</h2>
+
+      <?php if (isset($error)): ?>
+        <div class="error"><?php echo $error; ?></div>
+      <?php endif; ?>
+
       <form method="POST" action="">
         <input type="text" name="usuario" placeholder="Usuario" required><br>
         <input type="password" name="contraseña" placeholder="Contraseña" required><br>
