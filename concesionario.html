@@ -2,104 +2,244 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Los Santos Autos</title>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Arial', sans-serif;
-      background: #1a1a1a;
+      background: url('https://gtamag.com/images/garage/los-santos-custom_gtao_887689_cover.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
+      overflow-x: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: url('https://cdn.pixabay.com/photo/2017/10/05/00/39/arrow-2816063_960_720.png'), auto; /* Cursor personalizado */
     }
 
     header {
-      background: #ff0000;
+      background-color: rgba(0, 0, 0, 0.7);
       padding: 20px;
       text-align: center;
+      position: relative;
+      z-index: 10;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 3em;
-      letter-spacing: 2px;
+      font-size: 3.5em;
+      font-weight: 700;
+      color: #ff4500;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+      margin-bottom: 20px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      animation: fadeIn 2s ease-out;
     }
 
-    nav {
-      background: #111;
-      padding: 10px;
-      text-align: center;
+    .hamburger-menu {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 35px;
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      transition: all 0.3s ease;
     }
 
-    nav a {
+    .hamburger-menu div {
+      width: 35px;
+      height: 5px;
+      background-color: #fff;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 15px;
+      align-items: center;
+      justify-content: center;
+      display: none;
+      z-index: 5;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav a {
       color: #fff;
       text-decoration: none;
-      margin: 0 15px;
       font-weight: bold;
+      font-size: 1.4em;
+      margin: 15px 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    nav a:hover {
-      color: #ff0000;
+    .nav a:nth-child(1) {
+      animation: slideIn 0.5s ease forwards 0.1s;
     }
 
-    .login-btn {
-      background-color: #ff0000;
-      color: white;
-      padding: 8px 16px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-left: 15px;
+    .nav a:nth-child(2) {
+      animation: slideIn 0.5s ease forwards 0.2s;
     }
 
-    .login-btn:hover {
-      background-color: #cc0000;
+    .nav a:nth-child(3) {
+      animation: slideIn 0.5s ease forwards 0.3s;
     }
 
-    .container {
+    .nav a:nth-child(4) {
+      animation: slideIn 0.5s ease forwards 0.4s;
+    }
+
+    .nav.active {
+      display: flex;
+    }
+
+    .hamburger-menu.active div:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+
+    .hamburger-menu.active div:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-menu.active div:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+
+    .main-content {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-around;
+      padding: 50px 20px;
+      z-index: 0;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .info-box {
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 15px;
       padding: 30px;
+      width: 30%;
+      margin: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      animation: slideUp 1s forwards;
     }
 
-    .car-card {
-      background: #2b2b2b;
-      margin: 20px;
-      border-radius: 10px;
-      overflow: hidden;
-      width: 300px;
-      box-shadow: 0 0 10px #000;
-      transition: transform 0.3s ease;
+    .info-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     }
 
-    .car-card:hover {
-      transform: scale(1.05);
+    .info-box h3 {
+      color: #ff4500;
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .car-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
+    .info-box p {
+      color: #ccc;
+      font-size: 1.2em;
+      line-height: 1.6;
     }
 
-    .car-info {
-      padding: 15px;
+    .cta-btn {
+      background-color: #ff4500;
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 50px;
+      display: inline-block;
+      margin-top: 15px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
-    .car-info h3 {
-      margin: 0;
-      font-size: 1.5em;
-      color: #ff0000;
+    .cta-btn:hover {
+      background-color: #cc3700;
+      transform: translateY(-5px);
     }
 
-    .car-info p {
-      margin-top: 10px;
-      font-size: 1em;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 20px;
-      color: #888;
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .info-box {
+        width: 80%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hamburger-menu {
+        top: 10px;
+        right: 10px;
+      }
+
+      .hamburger-menu div {
+        width: 25px;
+        height: 4px;
+      }
+
+      .info-box {
+        width: 90%;
+      }
     }
   </style>
 </head>
@@ -107,46 +247,52 @@
 
   <header>
     <h1>Los Santos Autos</h1>
+    <button class="hamburger-menu" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
   </header>
 
-  <nav>
-    <a href="#">Inicio</a>
-    <a href="#">Catálogo</a>
-    <a href="#">Sobre Nosotros</a>
-    <a href="#">Contacto</a>
-    <a href="login.php" class="login-btn">Iniciar Sesión</a>
-  </nav>
+  <div class="nav" id="navMenu">
+    <a href="login.php">Iniciar Sesión</a>
+    <a href="catalogocoches.php">Catálogo Coches</a>
+    <a href="#">Catálogo Modificaciones</a>
+    <a href="#">Catálogo Servicios</a>
+  </div>
 
-  <div class="container">
-    <!-- Tarjetas de coches como antes -->
-    <div class="car-card">
-      <img src="https://i.imgur.com/E9kTt6z.jpg" alt="Elegy Retro Custom">
-      <div class="car-info">
-        <h3>Elegy Retro</h3>
-        <p>Potente y clásico, ideal para las calles de Los Santos. $95,000</p>
-      </div>
+  <div class="main-content">
+    <div class="info-box">
+      <h3>Bienvenidos a Los Santos Autos</h3>
+      <p>En nuestro concesionario encontrarás una gran variedad de vehículos: deportivos, de lujo, familiares y mucho más. ¡Visítanos y encuentra tu coche ideal!</p>
+      <a href="#" class="cta-btn">Explorar Catálogo</a>
     </div>
 
-    <div class="car-card">
-      <img src="https://i.imgur.com/9GkN5fy.jpg" alt="Banshee 900R">
-      <div class="car-info">
-        <h3>Banshee 900R</h3>
-        <p>Velocidad y estilo en uno. Desata el caos. $105,000</p>
-      </div>
+    <div class="info-box">
+      <h3>¿Por qué elegirnos?</h3>
+      <p>Ofrecemos coches de alta calidad con precios competitivos, además de un excelente servicio al cliente. Tu satisfacción es nuestra prioridad.</p>
+      <a href="#" class="cta-btn">Ver Servicios</a>
     </div>
 
-    <div class="car-card">
-      <img src="https://i.imgur.com/jT1eLME.jpg" alt="Sultan RS">
-      <div class="car-info">
-        <h3>Sultan RS</h3>
-        <p>Ideal para rallies y persecuciones. $120,000</p>
-      </div>
+    <div class="info-box">
+      <h3>Servicios Personalizados</h3>
+      <p>Además de vender coches, te ofrecemos modificaciones personalizadas y mantenimiento especializado. ¡Haz que tu coche sea único!</p>
+      <a href="#" class="cta-btn">Ver Más</a>
     </div>
   </div>
 
   <footer>
     © 2025 Los Santos Autos. Todos los derechos reservados.
   </footer>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      const hamburger = document.querySelector('.hamburger-menu');
+      navMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    }
+  </script>
 
 </body>
 </html>
