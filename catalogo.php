@@ -65,55 +65,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     <style>
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
-            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('https://gtamag.com/images/garage/los-santos-custom_gtao_887689_cover.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
         }
 
         header {
-            background: #ff0000;
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             text-align: center;
         }
 
         header h1 {
             margin: 0;
-            font-size: 3em;
+            font-size: 2.5em;
             letter-spacing: 2px;
+            color: #ff6600;
         }
 
         nav {
-            background: #111;
-            padding: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 15px;
             text-align: center;
         }
 
         nav a {
-            color: #fff;
+            color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 20px;
             font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s;
         }
 
         nav a:hover {
-            color: #ff0000;
+            color: #ff6600;
         }
 
         .content {
             text-align: center;
-            padding: 50px;
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
         }
 
         .content h2 {
-            color: #ff0000;
+            color: #ff6600;
             font-size: 2.5em;
         }
 
         .form-container {
-            background: #222;
+            background: rgba(0, 0, 0, 0.75);
             padding: 30px;
             border-radius: 8px;
             margin-top: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
         }
 
         .form-container input, .form-container textarea, .form-container button {
@@ -130,14 +140,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         }
 
         .form-container button {
-            background-color: #ff0000;
+            background-color: #ff6600;
             color: white;
             font-weight: bold;
             cursor: pointer;
         }
 
         .form-container button:hover {
-            background-color: #cc0000;
+            background-color: #cc5200;
         }
 
         table {
@@ -154,30 +164,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         }
 
         table th {
-            background-color: #ff0000;
+            background-color: #ff6600;
             color: white;
         }
 
         footer {
-            background: #111;
+            background: rgba(0, 0, 0, 0.7);
             text-align: center;
             padding: 20px;
-            color: #888;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            color: #ccc;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
+
     <header>
         <h1>Catálogo de Coches</h1>
     </header>
 
     <nav>
         <a href="dashboard.php">Dashboard</a>
-        <a href="catalogo.php">Catálogo</a>
+        <a href="#">Agregar Modificaciones</a>
         <a href="agregar_usuario.php">Agregar Usuarios</a>
+        <a href="#">Agregar Servicios</a>
     </nav>
 
     <div class="content">
@@ -240,17 +250,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         <h2>Agregar un nuevo usuario</h2>
         <div class="form-container">
             <form action="catalogo.php" method="POST">
-                <label for="usuario">Usuario:</label>
-                <input type="text" name="usuario" required><br>
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" name="contraseña" required><br>
-                <button type="submit" name="add_user">Agregar usuario</button>
-            </form>
-        </div>
-    </div>
-
-    <footer>
-        © 2025 Los Santos Autos. Todos los derechos reservados.
-    </footer>
-</body>
-</html>
+                <label for="usuario

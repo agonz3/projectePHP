@@ -29,119 +29,130 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Agregar Usuario - Los Santos Autos</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-        }
+  <meta charset="UTF-8">
+  <title>Agregar Usuario - Los Santos Autos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://gtamag.com/images/garage/los-santos-custom_gtao_887689_cover.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
 
-        header {
-            background: #ff0000;
-            padding: 20px;
-            text-align: center;
-        }
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 3em;
-            letter-spacing: 2px;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      letter-spacing: 2px;
+      color: #ff6600;
+    }
 
-        nav {
-            background: #111;
-            padding: 10px;
-            text-align: center;
-        }
+    .content {
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
 
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
+    .content h2 {
+      color: #ff6600;
+      font-size: 2em;
+    }
 
-        nav a:hover {
-            color: #ff0000;
-        }
+    .form-container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 8px;
+      margin-top: 30px;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .content {
-            text-align: center;
-            padding: 50px;
-        }
+    .form-container input, .form-container button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      font-size: 1em;
+      border-radius: 5px;
+      border: none;
+    }
 
-        .content h2 {
-            color: #ff0000;
-            font-size: 2.5em;
-        }
+    .form-container button {
+      background-color: #ff6600;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .form-container {
-            background: #222;
-            padding: 30px;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
+    .form-container button:hover {
+      background-color: #cc5200;
+    }
 
-        .form-container input, .form-container button {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            font-size: 1em;
-            border-radius: 5px;
-            border: none;
-        }
+    footer {
+      background: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      padding: 20px;
+      color: #ccc;
+      margin-top: 50px;
+    }
 
-        .form-container button {
-            background-color: #ff0000;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    nav {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+      text-align: center;
+    }
 
-        .form-container button:hover {
-            background-color: #cc0000;
-        }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
 
-        footer {
-            background: #111;
-            text-align: center;
-            padding: 20px;
-            color: #888;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+    nav a:hover {
+      color: #ff6600;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Agregar Usuario</h1>
-    </header>
 
-    <nav>
-        <a href="dashboard.php">Dashboard</a>
-        <a href="catalogo.php">Catálogo</a>
-        <a href="agregar_usuario.php">Agregar Usuarios</a>
-    </nav>
+  <header>
+    <h1>Agregar Usuario</h1>
+  </header>
 
-    <div class="content">
-        <h2>Formulario para agregar un nuevo usuario</h2>
-        <div class="form-container">
-            <form action="agregar_usuario.php" method="POST">
-                <label for="usuario">Usuario:</label>
-                <input type="text" name="usuario" required><br>
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" name="contraseña" required><br>
-                <button type="submit" name="add_user">Agregar usuario</button>
-            </form>
-        </div>
+  <nav>
+    <a href="dashboard.php">Dashboard</a>
+    <a href="#">Agregar Modificaciones</a>
+    <a href="catalogo.php">Agregar Vehiculos</a>
+    <a href="#">Agregar Servicios</a>
+  </nav>
+
+  <div class="content">
+    <h2>Formulario para agregar un nuevo usuario</h2>
+    <div class="form-container">
+      <form action="agregar_usuario.php" method="POST">
+        <label for="usuario">Usuario:</label>
+        <input type="text" name="usuario" required><br>
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" name="contraseña" required><br>
+        <button type="submit" name="add_user">Agregar usuario</button>
+      </form>
     </div>
+  </div>
 
-    <footer>
-        © 2025 Los Santos Autos. Todos los derechos reservados.
-    </footer>
+  <footer>
+    © 2025 Los Santos Autos. Todos los derechos reservados.
+  </footer>
+
 </body>
 </html>

@@ -62,37 +62,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
-      background: #1a1a1a;
+      background: url('https://gtamag.com/images/garage/los-santos-custom_gtao_887689_cover.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
+      height: 100vh;
     }
 
     header {
-      background: #ff0000;
-      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
     header h1 {
       margin: 0;
-      font-size: 3em;
-      letter-spacing: 2px;
+      font-size: 3.5em;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ff6600;
     }
 
     nav {
-      background: #111;
-      padding: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
       text-align: center;
     }
 
     nav a {
       color: #fff;
       text-decoration: none;
-      margin: 0 15px;
+      margin: 0 20px;
       font-weight: bold;
+      font-size: 1.2em;
     }
 
     nav a:hover {
-      color: #ff0000;
+      color: #ff6600;
+      text-decoration: underline;
     }
 
     .login-container {
@@ -100,49 +107,59 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #333;
+      background-color: rgba(0, 0, 0, 0.5);
     }
 
     .login-box {
-      width: 350px;
-      padding: 30px;
-      border-radius: 8px;
-      background-color: #222;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      text-align: center;
     }
 
     .login-box h2 {
-      text-align: center;
-      color: #ff0000;
-      font-size: 2.5em;
+      color: #ff6600;
+      font-size: 3em;
+      margin-bottom: 20px;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 1px;
     }
 
     .login-box input[type="text"],
     .login-box input[type="password"] {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-      background-color: #333;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 2px solid #ff6600;
+      background: #222;
       color: #fff;
+      font-size: 16px;
+      transition: border 0.3s ease;
+    }
+
+    .login-box input[type="text"]:focus,
+    .login-box input[type="password"]:focus {
+      border-color: #ffcc00;
+      outline: none;
     }
 
     .login-box button[type="submit"] {
       width: 100%;
-      padding: 10px;
-      background-color: #ff0000;
+      padding: 12px;
+      background-color: #ff6600;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: 18px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     .login-box button[type="submit"]:hover {
-      background-color: #cc0000;
+      background-color: #cc5200;
     }
 
     .error {
@@ -150,10 +167,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       text-align: center;
       font-weight: bold;
       margin-bottom: 15px;
+      font-size: 18px;
     }
 
     footer {
-      background: #111;
+      background: rgba(0, 0, 0, 0.7);
       text-align: center;
       padding: 20px;
       color: #888;
@@ -170,10 +188,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </header>
 
   <nav>
-    <a href="#">Inicio</a>
-    <a href="catalogo.php">Catálogo</a>
-    <a href="#">Sobre Nosotros</a>
-    <a href="#">Contacto</a>
+    <a href="concesionario.html">Inicio</a>
+    <a href="#">Catálogo coches</a>
+    <a href="#">Catálogo modificaciones</a>
+    <a href="#">Catálogo servicios</a>
   </nav>
 
   <div class="login-container">
