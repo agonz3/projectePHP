@@ -96,7 +96,7 @@ session_start();
 
   <nav>
     <a href="#">Inicio</a>
-    <a href="#">Catálogo</a>
+    <a href="catalogo.php">Catálogo</a>
     <a href="#">Perfil</a>
     <a href="logout.php">Cerrar sesión</a>
   </nav>
