@@ -185,9 +185,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
 
     <nav>
         <a href="dashboard.php">Dashboard</a>
-        <a href="#">Agregar Modificaciones</a>
+        <a href="modificaciones.php">Agregar Modificaciones</a>
         <a href="agregar_usuario.php">Agregar Usuarios</a>
-        <a href="#">Agregar Servicios</a>
+        <a href="servicios.php">Agregar Servicios</a>
     </nav>
 
     <div class="content">
