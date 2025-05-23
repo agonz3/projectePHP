@@ -188,15 +188,13 @@ header("Expires: 0");
       <p>Selecciona una opción para comenzar:</p>
     </section>
 
-<<<<<<< HEAD
-    <div class="dashboard-links">
-      <a href="concesionario.html">Inicio</a>
-      <a href="catalogo.php">Agregar Vehículos</a>
-      <a href="#">Agregar Modificaciones</a>
-      <a href="agregar_usuario.php">Agregar Usuarios</a>
-      <a href="servicios.php">Agregar Servicios</a>
-=======
     <div class="action-panel">
+      <div class="action-card">
+        <h3>Inicio</h3>
+        <p>Vuelve a la página principal del concesionario.</p>
+        <a href="concesionario.html" class="action-btn">Ir al Inicio</a>
+      </div>
+
       <div class="action-card">
         <h3>Vehículos</h3>
         <p>Gestiona el catálogo de vehículos disponibles en el concesionario.</p>
@@ -220,7 +218,6 @@ header("Expires: 0");
         <p>Administra las cuentas de usuario con acceso al sistema.</p>
         <a href="agregar_usuario.php" class="action-btn">Administrar Usuarios</a>
       </div>
->>>>>>> f3f27c04666bac6a2c89f3e80f3a02312960cd6c
     </div>
 
     <form action="logout.php" method="post" style="text-align: center;">
