@@ -27,10 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio = floatval($_POST['precio']);
     $color  = $conn->real_escape_string($_POST['color']);
 
-    $sql = "UPDATE coches SET modelo='$modelo', marca='$marca', precio=$precio, color='$color' WHERE id=$id_coche";
+    $sql = "UPDATE coches SET modelo='$modelo', marca='$marca', precio=$precio, color='$color' WHERE id_coche=$id_coche";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: catalogo.php"); // redirige al catálogo después de editar
+        header("Location: catalogocoches.php"); // redirige al catálogo después de editar
         exit();
     } else {
         echo "Error al actualizar coche: " . $conn->error;
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // obtener datos actuales del coche
-$sql = "SELECT * FROM coches WHERE id=$id_coche";
+$sql = "SELECT * FROM coches WHERE id_coche=$id_coche";
 $resultado = $conn->query($sql);
 
 if (!$resultado || $resultado->num_rows != 1) {
