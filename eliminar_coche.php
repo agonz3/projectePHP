@@ -17,9 +17,9 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 // eliminar coche
-$sql = "DELETE FROM coches WHERE id = $id";
+$sql = "DELETE FROM coches WHERE id_coche = $id";
 $conn->query($sql);
 
-header("Location: catalogo.php");
+header("Location: catalogocoches.php");
 exit();
 ?>
