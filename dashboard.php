@@ -132,7 +132,7 @@ if ($_SESSION['usuario'] != 'super') {
       <a href="catalogo.php">Agregar Vehículos</a>
       <a href="#">Agregar Modificaciones</a>
       <a href="agregar_usuario.php">Agregar Usuarios</a>
-      <a href="#">Agregar Servicios</a>
+      <a href="servicios.php">Agregar Servicios</a>
     </div>
 
     <form action="logout.php" method="post">
