@@ -6,7 +6,12 @@ function esAdmin() {
     return isset($_SESSION['usuario']) && in_array($_SESSION['usuario'], ['admin', 'super']);
 }
 
-$sql = "SELECT * FROM coches";
+if (!esAdmin()) {
+    header("Location: dashboard.php");
+    exit();
+}
+
+$sql = "SELECT * FROM usuarios";
 $resultado = $conn->query($sql);
 
 if (!$resultado) {
@@ -18,7 +23,7 @@ if (!$resultado) {
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Catálogo de Coches - Los Santos Autos</title>
+  <title>Lista de Usuarios - Los Santos Autos</title>
   <style>
     body {
       margin: 0;
@@ -40,7 +45,7 @@ if (!$resultado) {
     }
     .content {
       padding: 60px 20px;
-      max-width: 1000px;
+      max-width: 700px;
       margin: 0 auto;
       background-color: rgba(0, 0, 0, 0.75);
       border-radius: 10px;
@@ -49,7 +54,7 @@ if (!$resultado) {
     h2 {
       color: #ff6600;
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
     table {
       width: 100%;
@@ -94,45 +99,36 @@ if (!$resultado) {
 <body>
 
 <header>
-  <h1>Catálogo de Coches</h1>
+  <h1>Gestión de Usuarios</h1>
 </header>
 
 <div class="content">
-  <h2>Nuestros vehículos disponibles</h2>
+  <h2>Lista de Usuarios</h2>
 
-  <a href="concesionario.html" class="boton" style="margin-bottom: 20px; display: inline-block;">Inicio</a>
+  <a href="dashboard.php" class="boton" style="margin-bottom: 20px; display: inline-block;">Inicio</a>
+  <a href="agregar_usuario.php" class="boton" style="margin-bottom: 20px; display: inline-block;">Agregar Usuario</a>
 
   <table>
     <tr>
       <th>ID</th>
-      <th>Modelo</th>
-      <th>Marca</th>
-      <th>Precio</th>
-      <th>Color</th>
-      <?php if (esAdmin()) { ?>
-        <th>Acciones</th>
-      <?php } ?>
+      <th>Usuario</th>
+      <th>Acciones</th>
     </tr>
 
     <?php if ($resultado->num_rows > 0): ?>
         <?php while ($fila = $resultado->fetch_assoc()): ?>
             <tr>
-                <td><?php echo htmlspecialchars($fila['id_coche']); ?></td>
-                <td><?php echo htmlspecialchars($fila['modelo']); ?></td>
-                <td><?php echo htmlspecialchars($fila['marca']); ?></td>
-                <td><?php echo htmlspecialchars($fila['precio']); ?> $</td>
-                <td><?php echo htmlspecialchars($fila['color']); ?></td>
-                <?php if (esAdmin()): ?>
+                <td><?php echo htmlspecialchars($fila['id_usuario']); ?></td>
+                <td><?php echo htmlspecialchars($fila['usuario']); ?></td>
                 <td>
-                    <a class="boton" href="editar_coche.php?id=<?php echo urlencode($fila['id_coche']); ?>">Editar</a>
-                    <a class="boton" href="eliminar_coche.php?id=<?php echo urlencode($fila['id_coche']); ?>" onclick="return confirm('¿Seguro que quieres eliminar este coche?');">Eliminar</a>
+                    <a class="boton" href="editar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>">Editar</a>
+                    <a class="boton" href="eliminar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>" onclick="return confirm('¿Seguro que quieres eliminar este usuario?');">Eliminar</a>
                 </td>
-                <?php endif; ?>
             </tr>
         <?php endwhile; ?>
     <?php else: ?>
         <tr>
-            <td colspan="<?php echo esAdmin() ? 6 : 5; ?>">No hay coches en el catálogo.</td>
+            <td colspan="3">No hay usuarios registrados.</td>
         </tr>
     <?php endif; ?>
 
